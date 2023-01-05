@@ -20,6 +20,10 @@ pub struct Args {
     /// optional verbosity level. Default 0
     #[argh(option, short = 'v', default = "0")]
     verbose: u64,
+
+    /// the server to connect to
+    #[argh(option, short = 's', default = "192.168.0.105:1234")]
+    server: String,
 }
 
 pub const DEFAULT_FILTER_ENV: &str = "LOG_LEVEL";
@@ -38,7 +42,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
     term.hide_cursor().unwrap();
     term.clear_screen().unwrap();
 
-    let addr = env::var("SERVER").unwrap_or("192.168.0.105:1234".to_string());
+    let addr = args.server;
     info!("Going to connect to {addr:}");
     let addr = addr.parse().unwrap();
     let socket = TcpSocket::new_v4()?;
@@ -79,6 +83,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
                 let r = vals.read().await;
                 r.clone()
             };
+            // Map the 16 bit values to F32
             let buf = buf.iter()
                 .enumerate()
                 .map(|(k, v)| {
