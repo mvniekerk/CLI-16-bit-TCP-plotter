@@ -1,0 +1,20 @@
+[package]
+name = "capture-plotter"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+dotenv = "0.15.0"
+log = "0.4"
+color-eyre = "0.5.11"
+tracing = "0.1.32"
+tracing-subscriber = { version="0.3.10", features = ["env-filter", "fmt", "ansi"] }
+tracing-error = "0.2"
+tokio = { version = "1", features=["full"]}
+argh = "0.1.9"
+
+rgb = "0.8"
+console = "0.15"
+textplots = "0.8"
