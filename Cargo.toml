@@ -17,5 +17,18 @@ argh = "0.1.9"
 
 rgb = "0.8"
 console = "0.15"
-textplots = "0.8"
+textplots = "0.8.7"
+ratatui = "0.29.0"
 bushtelegram-dsp = { path = "../bushtelegram-dsp" }
+lazy_static = "1"
+
+eframe = "0.27"
+egui = "0.27"
+egui_plot = "0.27"
+rustfft = "6.2" # Or latest
+num-complex = "0.4"
+crossbeam-channel = "0.5"
+clap = { version = "4.5", features = ["derive"] }
+env_logger = "0.11" # Or latest
+byteorder = "1.5" # Or latest
+chrono = "0.4" # For logging timestamp
