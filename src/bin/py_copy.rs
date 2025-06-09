@@ -121,9 +121,6 @@ fn tcp_data_receiver_thread(
                 info!("Connected to {}:{}", server_host, server_port);
                 let mut read_buffer = [0u8; SAMPLE_SIZE * 4]; // 4 bytes per f32
                 let mut val_buffer = [0f32; SAMPLE_SIZE];
-                // let mut samples_f32_for_fft_input = vec![0f32; SAMPLE_SIZE];
-                // let mut fft_complex_output = vec![Complex::zero(); FFT_RAW_OUTPUT_LEN];
-                // let mut fft_complex_output = vec![Complex::zero(); SAMPLE_SIZE];
 
                 loop { // Data reading loop
                     match stream.read_exact(&mut read_buffer) {
@@ -151,41 +148,6 @@ fn tcp_data_receiver_thread(
                             }
 
                             let fft_magnitudes = apply_fft(&mut val_buffer);
-
-                            // Copy to the buffer that RFFT will modify (it takes &mut)
-                            // samples_f32_for_fft_input.copy_from_slice(&current_samples_f32_unpacked);
-                            //
-                            // // Perform FFT
-                            // r2c_fft.process_with_scratch(
-                            //         // &mut samples_f32_for_fft_input,
-                            //     &mut fft_complex_output,
-                            //     &mut scratch_buffer,
-                            // );
-                            // if let Err(e) = r2c_fft.process_with_scratch(
-                            //     &mut samples_f32_for_fft_input,
-                            //     &mut fft_complex_output,
-                            //     &mut scratch_buffer,
-                            // ) {
-                            //     error!("FFT processing error: {}. Skipping frame.", e);
-                            //     continue;
-                            // }
-
-                            // Calculate magnitudes (convert to f64 for plotting consistency)
-                            // let fft_magnitudes: Vec<f64> = fft_complex_output
-                            //     .iter()
-                            //     .map(|c| c.norm() as f64) // .norm() is sqrt(re^2 + im^2)
-                            //     .collect();
-
-                            // if fft_magnitudes.len() != FFT_RAW_OUTPUT_LEN {
-                            //     warn!(
-                            //         "FFT output length mismatch. Expected {}, got {}. Check SAMPLE_SIZE.",
-                            //         FFT_RAW_OUTPUT_LEN,
-                            //         fft_magnitudes.len()
-                            //     );
-                            //     // This shouldn't happen if SAMPLE_SIZE and RFFT are used correctly
-                            //     continue;
-                            // }
-
 
                             // Slice the FFT output
                             if SLICE_END_BIN_INDEX >= fft_magnitudes.len() {
